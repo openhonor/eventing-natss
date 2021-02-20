@@ -13,11 +13,12 @@ require (
 	github.com/nats-io/stan.go v0.6.0
 	github.com/pkg/errors v0.9.1
 	go.uber.org/zap v1.16.0
+	golang.org/x/time v0.0.0-20200630173020-3af7569d3a1e
 	k8s.io/api v0.19.7
 	k8s.io/apimachinery v0.19.7
 	k8s.io/client-go v0.19.7
 	knative.dev/eventing v0.20.1-0.20210127134430-ea452b5b6655
-	knative.dev/hack v0.0.0-20210120165453-8d623a0af457
-	knative.dev/pkg v0.0.0-20210127163530-0d31134d5f4e
+	knative.dev/hack v0.0.0-20210203173706-8368e1f6eacf
+	knative.dev/pkg v0.0.0-20210204171111-887806985c09
 	knative.dev/reconciler-test v0.0.0-20210127151131-28c3852c3e9b
 )
