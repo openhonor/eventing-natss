@@ -1,7 +1,9 @@
 package natss
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestAdapter_Start(t *testing.T) {
-
+	// TODO
 }
