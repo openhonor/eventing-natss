@@ -41,7 +41,7 @@ require (
 	k8s.io/klog/v2 v2.5.0 // indirect
 	k8s.io/kube-openapi v0.0.0-20210216185858-15cd8face8d6 // indirect
 	knative.dev/eventing v0.21.0
-	knative.dev/hack v0.0.0-20210203173706-8368e1f6eacf
+	knative.dev/hack v0.0.0-20210305150220-f99a25560134
 	knative.dev/pkg v0.0.0-20210216013737-584933f8280b
 	knative.dev/reconciler-test v0.0.0-20210216030508-77f50054d024
 	sigs.k8s.io/structured-merge-diff/v4 v4.1.0 // indirect
