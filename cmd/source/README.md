@@ -1,1 +1,1 @@
-# TODO - eventing-contrib/kafka/source/cmd content here
+# TODO - eventing-contrib/natss/source/cmd content here

@@ -30,6 +30,7 @@ import (
 	versioned "knative.dev/eventing-natss/pkg/client/clientset/versioned"
 	internalinterfaces "knative.dev/eventing-natss/pkg/client/informers/externalversions/internalinterfaces"
 	messaging "knative.dev/eventing-natss/pkg/client/informers/externalversions/messaging"
+	sources "knative.dev/eventing-natss/pkg/client/informers/externalversions/sources"
 )
 
 // SharedInformerOption defines the functional option type for SharedInformerFactory.
@@ -173,8 +174,13 @@ type SharedInformerFactory interface {
 	WaitForCacheSync(stopCh <-chan struct{}) map[reflect.Type]bool
 
 	Messaging() messaging.Interface
+	Sources() sources.Interface
 }
 
 func (f *sharedInformerFactory) Messaging() messaging.Interface {
 	return messaging.New(f, f.namespace, f.tweakListOptions)
+}
+
+func (f *sharedInformerFactory) Sources() sources.Interface {
+	return sources.New(f, f.namespace, f.tweakListOptions)
 }

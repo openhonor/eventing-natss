@@ -42,9 +42,10 @@ const (
 
 type AdapterConfig struct {
 	adapter.EnvConfig
-	Subjects []string `envconfig:"NATSS_SUBJECTS" required:"true"`
-
-	Name string `envconfig:"NAME" required:"true"`
+	Subjects      []string `envconfig:"NATSS_SUBJECTS" required:"true"`
+	Name          string   `envconfig:"NAME" required:"true"`
+	ConsumerGroup string   `envconfig:"NATSS_CONSUMER_GROUP" required:"true"`
+	KeyType       string   `envconfig:"KEY_TYPE" required:"false"`
 }
 
 func NewEnvConfig() adapter.EnvConfigAccessor {

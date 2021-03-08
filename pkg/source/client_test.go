@@ -7,8 +7,8 @@ import (
 )
 
 var (
-	clusterID = ""
-	clientID  = ""
+	clusterID = "nats://10.224.201.88:30180"
+	clientID  = "$ip"
 )
 
 func TestNatssClient(t *testing.T) {
@@ -22,7 +22,9 @@ func TestNatssClient(t *testing.T) {
 	// Simple Async Subscriber
 	sub, err := sc.QueueSubscribe("foo", "foo_group", func(m *stan.Msg) {
 		fmt.Printf("Received a message: %s\n", string(m.Data))
-	})
+		_ = m.Ack()
+
+	}, stan.SetManualAckMode())
 	if err != nil {
 		panic(err)
 	}

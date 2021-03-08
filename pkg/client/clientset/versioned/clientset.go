@@ -25,11 +25,13 @@ import (
 	rest "k8s.io/client-go/rest"
 	flowcontrol "k8s.io/client-go/util/flowcontrol"
 	messagingv1beta1 "knative.dev/eventing-natss/pkg/client/clientset/versioned/typed/messaging/v1beta1"
+	sourcesv1beta1 "knative.dev/eventing-natss/pkg/client/clientset/versioned/typed/sources/v1beta1"
 )
 
 type Interface interface {
 	Discovery() discovery.DiscoveryInterface
 	MessagingV1beta1() messagingv1beta1.MessagingV1beta1Interface
+	SourcesV1beta1() sourcesv1beta1.SourcesV1beta1Interface
 }
 
 // Clientset contains the clients for groups. Each group has exactly one
@@ -37,11 +39,17 @@ type Interface interface {
 type Clientset struct {
 	*discovery.DiscoveryClient
 	messagingV1beta1 *messagingv1beta1.MessagingV1beta1Client
+	sourcesV1beta1   *sourcesv1beta1.SourcesV1beta1Client
 }
 
 // MessagingV1beta1 retrieves the MessagingV1beta1Client
 func (c *Clientset) MessagingV1beta1() messagingv1beta1.MessagingV1beta1Interface {
 	return c.messagingV1beta1
+}
+
+// SourcesV1beta1 retrieves the SourcesV1beta1Client
+func (c *Clientset) SourcesV1beta1() sourcesv1beta1.SourcesV1beta1Interface {
+	return c.sourcesV1beta1
 }
 
 // Discovery retrieves the DiscoveryClient
@@ -70,6 +78,11 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 		return nil, err
 	}
 
+	cs.sourcesV1beta1, err = sourcesv1beta1.NewForConfig(&configShallowCopy)
+	if err != nil {
+		return nil, err
+	}
+
 	cs.DiscoveryClient, err = discovery.NewDiscoveryClientForConfig(&configShallowCopy)
 	if err != nil {
 		return nil, err
@@ -83,6 +96,8 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 	var cs Clientset
 	cs.messagingV1beta1 = messagingv1beta1.NewForConfigOrDie(c)
 
+	cs.sourcesV1beta1 = sourcesv1beta1.NewForConfigOrDie(c)
+
 	cs.DiscoveryClient = discovery.NewDiscoveryClientForConfigOrDie(c)
 	return &cs
 }
@@ -91,6 +106,8 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 func New(c rest.Interface) *Clientset {
 	var cs Clientset
 	cs.messagingV1beta1 = messagingv1beta1.New(c)
+
+	cs.sourcesV1beta1 = sourcesv1beta1.New(c)
 
 	cs.DiscoveryClient = discovery.NewDiscoveryClient(c)
 	return &cs
