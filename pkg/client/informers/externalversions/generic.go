@@ -24,6 +24,7 @@ import (
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	cache "k8s.io/client-go/tools/cache"
 	v1beta1 "knative.dev/eventing-natss/pkg/apis/messaging/v1beta1"
+	sourcesv1beta1 "knative.dev/eventing-natss/pkg/apis/sources/v1beta1"
 )
 
 // GenericInformer is type of SharedIndexInformer which will locate and delegate to other
@@ -55,6 +56,10 @@ func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource
 	// Group=messaging.knative.dev, Version=v1beta1
 	case v1beta1.SchemeGroupVersion.WithResource("natsschannels"):
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Messaging().V1beta1().NatssChannels().Informer()}, nil
+
+		// Group=sources, Version=v1beta1
+	case sourcesv1beta1.SchemeGroupVersion.WithResource("natsssources"):
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Sources().V1beta1().NatssSources().Informer()}, nil
 
 	}
 

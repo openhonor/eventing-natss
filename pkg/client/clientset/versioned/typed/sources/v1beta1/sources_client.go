@@ -1,5 +1,5 @@
 /*
-Copyright 2021 The Knative Authors
+Copyright 2020 The Knative Authors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ type SourcesV1beta1Interface interface {
 	NatssSourcesGetter
 }
 
-// SourcesV1beta1Client is used to interact with features provided by the sources.knative.dev group.
+// SourcesV1beta1Client is used to interact with features provided by the sources group.
 type SourcesV1beta1Client struct {
 	restClient rest.Interface
 }

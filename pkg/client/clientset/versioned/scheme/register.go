@@ -25,6 +25,7 @@ import (
 	serializer "k8s.io/apimachinery/pkg/runtime/serializer"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
 	messagingv1beta1 "knative.dev/eventing-natss/pkg/apis/messaging/v1beta1"
+	sourcesv1beta1 "knative.dev/eventing-natss/pkg/apis/sources/v1beta1"
 )
 
 var Scheme = runtime.NewScheme()
@@ -32,6 +33,7 @@ var Codecs = serializer.NewCodecFactory(Scheme)
 var ParameterCodec = runtime.NewParameterCodec(Scheme)
 var localSchemeBuilder = runtime.SchemeBuilder{
 	messagingv1beta1.AddToScheme,
+	sourcesv1beta1.AddToScheme,
 }
 
 // AddToScheme adds all types of this clientset into the given scheme. This allows composition

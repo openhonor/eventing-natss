@@ -1,5 +1,5 @@
 /*
-Copyright 2021 The Knative Authors
+Copyright 2020 The Knative Authors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -44,7 +44,7 @@ import (
 
 const (
 	defaultControllerAgentName = "natsssource-controller"
-	defaultFinalizerName       = "natsssources.sources.knative.dev"
+	defaultFinalizerName       = "natsssources.sources"
 )
 
 // NewImpl returns a controller.Impl that handles queuing and feeding work from
@@ -92,7 +92,7 @@ func NewImpl(ctx context.Context, r Interface, optionsFns ...controller.OptionsF
 
 	logger = logger.With(
 		zap.String(logkey.ControllerType, ctrTypeName),
-		zap.String(logkey.Kind, "sources.knative.dev.NatssSource"),
+		zap.String(logkey.Kind, "sources.NatssSource"),
 	)
 
 	impl := controller.NewImpl(rec, logger, ctrTypeName)

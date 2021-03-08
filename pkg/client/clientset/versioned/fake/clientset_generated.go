@@ -27,6 +27,8 @@ import (
 	clientset "knative.dev/eventing-natss/pkg/client/clientset/versioned"
 	messagingv1beta1 "knative.dev/eventing-natss/pkg/client/clientset/versioned/typed/messaging/v1beta1"
 	fakemessagingv1beta1 "knative.dev/eventing-natss/pkg/client/clientset/versioned/typed/messaging/v1beta1/fake"
+	sourcesv1beta1 "knative.dev/eventing-natss/pkg/client/clientset/versioned/typed/sources/v1beta1"
+	fakesourcesv1beta1 "knative.dev/eventing-natss/pkg/client/clientset/versioned/typed/sources/v1beta1/fake"
 )
 
 // NewSimpleClientset returns a clientset that will respond with the provided objects.
@@ -79,4 +81,9 @@ var _ clientset.Interface = &Clientset{}
 // MessagingV1beta1 retrieves the MessagingV1beta1Client
 func (c *Clientset) MessagingV1beta1() messagingv1beta1.MessagingV1beta1Interface {
 	return &fakemessagingv1beta1.FakeMessagingV1beta1{Fake: &c.Fake}
+}
+
+// SourcesV1beta1 retrieves the SourcesV1beta1Client
+func (c *Clientset) SourcesV1beta1() sourcesv1beta1.SourcesV1beta1Interface {
+	return &fakesourcesv1beta1.FakeSourcesV1beta1{Fake: &c.Fake}
 }

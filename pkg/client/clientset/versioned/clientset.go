@@ -77,7 +77,6 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	cs.sourcesV1beta1, err = sourcesv1beta1.NewForConfig(&configShallowCopy)
 	if err != nil {
 		return nil, err
@@ -95,7 +94,6 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 func NewForConfigOrDie(c *rest.Config) *Clientset {
 	var cs Clientset
 	cs.messagingV1beta1 = messagingv1beta1.NewForConfigOrDie(c)
-
 	cs.sourcesV1beta1 = sourcesv1beta1.NewForConfigOrDie(c)
 
 	cs.DiscoveryClient = discovery.NewDiscoveryClientForConfigOrDie(c)
@@ -106,7 +104,6 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 func New(c rest.Interface) *Clientset {
 	var cs Clientset
 	cs.messagingV1beta1 = messagingv1beta1.New(c)
-
 	cs.sourcesV1beta1 = sourcesv1beta1.New(c)
 
 	cs.DiscoveryClient = discovery.NewDiscoveryClient(c)
