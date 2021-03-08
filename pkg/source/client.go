@@ -8,9 +8,9 @@ import (
 )
 
 type NatssEnvConfig struct {
-	NatssUrl  string   `envconfig:"NATSS_URL" required:"true"`
-	ClusterID string   `envconfig:"CLUSTER_ID" required:"true"`
-	ClientID  string   `envconfig:"CLIENT_ID" required:"false"`
+	NatssUrl  string `envconfig:"NATSS_URL" required:"true"`
+	ClusterID string `envconfig:"NATSS_CLUSTER_ID" required:"true"`
+	ClientID  string `envconfig:"NATSS_CLIENT_ID" required:"false"`
 }
 
 // NewConfig extracts the Natss configuration from the environment.

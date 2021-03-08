@@ -19,20 +19,21 @@ package natss
 import (
 	"context"
 	"fmt"
+	"io"
+	"io/ioutil"
+	"net/http"
+	"strings"
+
 	"github.com/nats-io/stan.go"
 	"go.opencensus.io/trace"
 	"go.uber.org/zap"
 	"golang.org/x/time/rate"
-	"io"
-	"io/ioutil"
+
 	"knative.dev/eventing-natss/pkg/common/consumer"
 	"knative.dev/eventing-natss/pkg/source"
 	"knative.dev/eventing/pkg/adapter/v2"
 	"knative.dev/eventing/pkg/kncloudevents"
 	"knative.dev/pkg/logging"
-	"net/http"
-	"strings"
-
 	pkgsource "knative.dev/pkg/source"
 )
 
@@ -42,10 +43,9 @@ const (
 
 type AdapterConfig struct {
 	adapter.EnvConfig
-	Subjects      []string `envconfig:"NATSS_SUBJECTS" required:"true"`
-	Name          string   `envconfig:"NAME" required:"true"`
-	ConsumerGroup string   `envconfig:"NATSS_CONSUMER_GROUP" required:"true"`
-	KeyType       string   `envconfig:"KEY_TYPE" required:"false"`
+	Subjects []string `envconfig:"NATSS_SUBJECTS" required:"true"`
+
+	Name string `envconfig:"NAME" required:"true"`
 }
 
 func NewEnvConfig() adapter.EnvConfigAccessor {
@@ -91,6 +91,10 @@ func (a *Adapter) start(stopCh <-chan struct{}) error {
 	natsEnv, _, err := source.NewConfig(context.Background())
 	if err != nil {
 		return fmt.Errorf("failed to create the config: %w", err)
+	}
+
+	if natsEnv.ClientID == "" {
+		natsEnv.ClientID = fmt.Sprintf("%s-%s", a.config.Namespace, a.config.Name)
 	}
 	consumerGroupFactory := consumer.NewConsumerGroupFactory(natsEnv.NatssUrl, natsEnv.ClusterID, natsEnv.ClientID)
 	err = consumerGroupFactory.StartConsumerGroup(a.config.Subjects, a.logger, a)
